@@ -1,0 +1,35 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+/*
+Enforces compiling with the specified compiler if environment variable JAVA#_HOME is set.
+For example, projects that build with Java 7 should have environment variable JAVA7_HOME set.
+*/
+apply from: scriptFile('env.gradle')
+configureJavaCompilers(8)
+
+repositories {
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+}
+
+dependencies {
+    shadow deps.spigot
+
+    compile project(':spigot-framework')
+}
+
+shadowJar {
+//    relocate 'com.enjin', 'io.enjincoin.spigot_plugin.shaded.enjin'
+//    relocate 'com.google', 'io.enjincoin.spigot_plugin.shaded.google'
+//    relocate 'com.pusher', 'io.enjincoin.spigot_plugin.shaded.pusher'
+//    relocate 'javax', 'io.enjincoin.spigot_plugin.shaded.javax'
+//    relocate 'net.kyori', 'io.enjincoin.spigot_plugin.shaded.kyori'
+//    relocate 'net.minidev', 'io.enjincoin.spigot_plugin.shaded.minidev.json'
+//    relocate 'okhttp3', 'io.enjincoin.spigot_plugin.shaded.okhttp3'
+//    relocate 'okio', 'io.enjincoin.spigot_plugin.shaded.okio'
+}
+
+processResources {
+    filter ReplaceTokens, tokens: [
+            "version": project.property("version")
+    ]
+}

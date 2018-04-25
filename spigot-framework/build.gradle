@@ -1,0 +1,19 @@
+/*
+Enforces compiling with the specified compiler if environment variable JAVA#_HOME is set.
+For example, projects that build with Java 7 should have environment variable JAVA7_HOME set.
+*/
+apply from: scriptFile('env.gradle')
+configureJavaCompilers(8)
+
+repositories {
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+}
+
+dependencies {
+    shadow deps.spigot
+
+    compile deps.minecraftCommonsSpigot;
+    compile deps.enjinCoinSdk
+    compile deps.kyoriText
+    compile deps.gson
+}
